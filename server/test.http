@@ -1,0 +1,59 @@
+@sara = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImVtcGxveWVlIiwibmFtZSI6IlNhcmEiLCJpYXQiOjE3OTMwNDY4OTAsImV4cCI6MTc5MzY1MTY5MH0.eJ9aFJ6Ics9R2k44YAPB6kfMMSxNhpD44E9A7xvMB6E
+
+@omar = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6Iml0X3N0YWZmIiwibmFtZSI6Ik9tYXIiLCJpYXQiOjE3OTMwNDc4NDgsImV4cCI6MTc5MzY1MjY0OH0.kcZiZCY6TBsWI7FX6l6rWKHxNdympkgQ9D_4toIahMo
+
+### 1. Login as Sara
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{ "email": "sara@test.com", "password": "123456" }
+
+### 2. Login as Omar
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{ "email": "omar@test.com", "password": "123456" }
+
+### 3. Sara creates a ticket
+POST http://localhost:5000/api/tickets
+Content-Type: application/json
+Authorization: Bearer {{sara}}
+
+{ "title": "Laptop won't connect to Wi-Fi", "description": "Dropped after the update", "category": "network", "priority": "high" }
+
+### 4. Sara lists her tickets
+GET http://localhost:5000/api/tickets
+Authorization: Bearer {{sara}}
+
+### 5. Omar lists all tickets
+GET http://localhost:5000/api/tickets
+Authorization: Bearer {{omar}}
+
+### 6. Omar assigns ticket 1 to himself
+PATCH http://localhost:5000/api/tickets/1/assign
+Authorization: Bearer {{omar}}
+
+### 7. Omar sets status
+PATCH http://localhost:5000/api/tickets/1/status
+Content-Type: application/json
+Authorization: Bearer {{omar}}
+
+{ "status": "in_progress" }
+
+### 8. Omar comments
+POST http://localhost:5000/api/tickets/1/comments
+Content-Type: application/json
+Authorization: Bearer {{omar}}
+
+{ "body": "Reset the adapter, testing now." }
+
+### 9. Ticket detail with comments
+GET http://localhost:5000/api/tickets/1
+Authorization: Bearer {{sara}}
+
+### 10. Sara tries to change status (should be 403)
+PATCH http://localhost:5000/api/tickets/1/status
+Content-Type: application/json
+Authorization: Bearer {{sara}}
+
+{ "status": "resolved" }

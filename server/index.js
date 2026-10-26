@@ -7,7 +7,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth", require("./routes/auth"));
-
+app.use("/api/tickets", require("./routes/tickets"));
 app.get("/", (req, res) => res.json({ message: "QuickDesk API running" }));
 
 const PORT = process.env.PORT || 5000;
