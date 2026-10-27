@@ -1,0 +1,25 @@
+{
+  "app": { "name": "QuickDesk", "tagline": "IT helpdesk, simplified" },
+  "auth": {
+    "login": "Log in",
+    "loggingIn": "Logging in...",
+    "email": "Email",
+    "password": "Password",
+    "invalid": "Invalid email or password",
+    "demo": "Try a demo account"
+  },
+  "nav": { "logout": "Log out" },
+  "roles": { "employee": "Employee", "it_staff": "IT staff" },
+  "tickets": {
+    "title": "Tickets",
+    "hello": "Hello, {{name}}",
+    "placeholder": "Your tickets will appear here."
+  },
+  "common": {
+    "switchLang": "العربية",
+    "dark": "Dark",
+    "light": "Light",
+    "toggleTheme": "Toggle theme",
+    "error": "Something went wrong. Please try again."
+  }
+}

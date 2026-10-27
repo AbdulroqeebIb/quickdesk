@@ -1,0 +1,25 @@
+{
+  "app": { "name": "QuickDesk", "tagline": "دعم تقني أبسط" },
+  "auth": {
+    "login": "تسجيل الدخول",
+    "loggingIn": "جارٍ تسجيل الدخول...",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "invalid": "البريد الإلكتروني أو كلمة المرور غير صحيحة",
+    "demo": "جرّب حسابًا تجريبيًا"
+  },
+  "nav": { "logout": "تسجيل الخروج" },
+  "roles": { "employee": "موظف", "it_staff": "الدعم التقني" },
+  "tickets": {
+    "title": "التذاكر",
+    "hello": "مرحبًا، {{name}}",
+    "placeholder": "ستظهر تذاكرك هنا."
+  },
+  "common": {
+    "switchLang": "English",
+    "dark": "داكن",
+    "light": "فاتح",
+    "toggleTheme": "تبديل المظهر",
+    "error": "حدث خطأ. حاول مرة أخرى."
+  }
+}
