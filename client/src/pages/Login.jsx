@@ -21,7 +21,11 @@ export default function Login() {
     try {
       await login(email.trim(), password);
     } catch (err) {
-      setError(err.status === 401 ? t("auth.invalid") : t("common.error"));
+      setError(
+        err.status === 401
+          ? t("auth.invalid")
+          : `${t("common.error")} [${err.name}: ${err.message}]`,
+      );
     } finally {
       setLoading(false);
     }
