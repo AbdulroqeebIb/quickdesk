@@ -80,7 +80,7 @@ router.post("/", async (req, res) => {
 
 router.get("/", async (req, res) => {
   try {
-    const { status, priority, category, search } = req.query;
+    const { status, priority, category, search, assigned } = req.query;
     const conditions = [];
     const values = [];
 
@@ -103,6 +103,13 @@ router.get("/", async (req, res) => {
     if (search) {
       values.push(`%${search}%`);
       conditions.push(`t.title ILIKE $${values.length}`);
+    }
+    if (assigned === "me") {
+      values.push(req.user.id);
+      conditions.push(`t.assigned_to = $${values.length}`);
+    }
+    if (assigned === "none") {
+      conditions.push("t.assigned_to IS NULL");
     }
 
     const where = conditions.length ? `WHERE ${conditions.join(" AND ")}` : "";

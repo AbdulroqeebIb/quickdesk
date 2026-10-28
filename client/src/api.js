@@ -31,6 +31,17 @@ export async function api(path, { method = "GET", body } = {}) {
   }
 
   const data = await res.json().catch(() => ({}));
+
+  if (res.status === 401 && !path.startsWith("/api/auth/login")) {
+    try {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+    } catch {
+      // ignore
+    }
+    window.location.assign("/login");
+  }
+
   if (!res.ok) throw new ApiError(data.error || "Request failed", res.status);
   return data;
 }

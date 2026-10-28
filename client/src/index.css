@@ -356,3 +356,282 @@ input:focus-visible,
   flex-wrap: wrap;
   gap: 0.5rem;
 }
+:root {
+  --danger-bg: #fdecea;
+  --danger-text: #b3261e;
+}
+
+:root[data-theme="dark"] {
+  --danger-bg: #3a1618;
+  --danger-text: #f5a3a3;
+}
+
+h2 {
+  margin-block: 0 0.75rem;
+  font-size: 1.1rem;
+}
+
+.narrow {
+  max-width: 640px;
+  margin-inline: auto;
+}
+
+.stack {
+  display: grid;
+  gap: 1rem;
+}
+
+.page-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-block-end: 1rem;
+}
+
+.page-head h1 {
+  margin: 0;
+}
+
+.btn-link {
+  display: inline-block;
+  text-decoration: none;
+}
+
+select,
+textarea {
+  width: 100%;
+  font: inherit;
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.two-col {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.filters {
+  display: grid;
+  gap: 0.75rem;
+  margin-block-end: 1rem;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.chip {
+  font: inherit;
+  font-size: 0.85rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 99px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.chip.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--primary-contrast);
+}
+
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.filter-row select {
+  width: auto;
+  flex: 1 1 150px;
+}
+
+.ticket-list {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.ticket-card {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  padding: 0.9rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.ticket-card:hover {
+  border-color: var(--primary);
+}
+
+.ticket-title {
+  margin: 0 0 0.2rem;
+  font-weight: 600;
+}
+
+.ticket-meta {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.ticket-side {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.pill {
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 0.15rem 0.6rem;
+  border-radius: 99px;
+  white-space: nowrap;
+}
+
+.status-open {
+  background: var(--open-bg);
+  color: var(--open-text);
+}
+
+.status-in_progress {
+  background: var(--progress-bg);
+  color: var(--progress-text);
+}
+
+.status-resolved {
+  background: var(--resolved-bg);
+  color: var(--resolved-text);
+}
+
+.priority-low {
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+}
+
+.priority-medium {
+  background: var(--open-bg);
+  color: var(--open-text);
+}
+
+.priority-high {
+  background: var(--danger-bg);
+  color: var(--danger-text);
+}
+
+.empty {
+  text-align: center;
+}
+
+.empty p {
+  margin: 0.25rem 0;
+}
+
+.back {
+  display: inline-block;
+  margin-block-end: 0.75rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+[dir="rtl"] .flip {
+  display: inline-block;
+  transform: scaleX(-1);
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 0.75rem 1.5rem;
+  margin: 0;
+}
+
+.detail-grid dt {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.detail-grid dd {
+  margin: 0;
+}
+
+.description {
+  margin-block: 1rem 0;
+  white-space: pre-wrap;
+}
+
+.manage-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.75rem;
+}
+
+.manage-row label {
+  display: grid;
+  flex: 1 1 180px;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+}
+
+.comments {
+  display: grid;
+  gap: 0.75rem;
+  margin-block-end: 1rem;
+}
+
+.comment {
+  padding: 0.7rem 0.9rem;
+  background: var(--bg);
+  border-radius: 8px;
+  border-inline-start: 3px solid var(--border);
+}
+
+.comment-staff {
+  border-inline-start-color: var(--primary);
+}
+
+.comment-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.comment-body {
+  margin: 0.3rem 0 0;
+  white-space: pre-wrap;
+}
