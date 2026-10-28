@@ -5,7 +5,12 @@ const cors = require("cors");
 const app = express();
 app.use(
   cors({
-    origin: process.env.CLIENT_URL ? process.env.CLIENT_URL.split(",") : true,
+    origin: [
+      "https://quickdesk-six.vercel.app",
+      "http://localhost:5173",
+      "http://localhost:3000",
+    ],
+    credentials: true,
   }),
 );
 app.use(express.json());
