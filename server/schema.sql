@@ -27,3 +27,13 @@ CREATE TABLE comments (
   body TEXT NOT NULL,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
+
+CREATE TABLE attachments (
+  id SERIAL PRIMARY KEY,
+  ticket_id INT NOT NULL REFERENCES tickets(id) ON DELETE CASCADE,
+  filename TEXT NOT NULL,
+  mime_type TEXT NOT NULL,
+  size INT NOT NULL,
+  data BYTEA NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);

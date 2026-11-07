@@ -15,6 +15,8 @@ export default function TicketDetail() {
 
   const [ticket, setTicket] = useState(null);
   const [comments, setComments] = useState([]);
+  const [attachments, setAttachments] = useState([]);
+  const [attachmentUrls, setAttachmentUrls] = useState({});
   const [staff, setStaff] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -27,11 +29,40 @@ export default function TicketDetail() {
   useEffect(() => {
     let cancelled = false;
     api(`/api/tickets/${id}`)
-      .then((data) => {
+      .then(async (data) => {
         if (cancelled) return;
         setTicket(data.ticket);
         setComments(data.comments);
+        setAttachments(data.attachments || []);
         setError("");
+
+        // Fetch authorized blob URLs for attachments
+        if (data.attachments && data.attachments.length > 0) {
+          const token =
+            localStorage.getItem("token") || sessionStorage.getItem("token");
+          const urls = {};
+          for (const att of data.attachments) {
+            try {
+              const res = await fetch(
+                `http://localhost:5000/api/tickets/${id}/attachments/${att.id}`,
+                {
+                  headers: {
+                    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+                  },
+                },
+              );
+              if (res.ok) {
+                const blob = await res.blob();
+                urls[att.id] = URL.createObjectURL(blob);
+              }
+            } catch (err) {
+              console.error("Failed to load attachment blob", err);
+            }
+          }
+          if (!cancelled) {
+            setAttachmentUrls(urls);
+          }
+        }
       })
       .catch((err) => {
         if (cancelled) return;
@@ -146,6 +177,85 @@ export default function TicketDetail() {
           </dl>
 
           <p className="description">{ticket.description}</p>
+
+          {/* Attachments Display Section */}
+          {attachments.length > 0 && (
+            <div
+              style={{
+                marginTop: "20px",
+                borderTop: "1px solid var(--border, #eee)",
+                paddingTop: "15px",
+              }}
+            >
+              <h3>{t("detail.attachments") || "Attachments"}</h3>
+              <div
+                style={{
+                  display: "flex",
+                  gap: "12px",
+                  flexWrap: "wrap",
+                  marginTop: "10px",
+                }}
+              >
+                {attachments.map((att) => (
+                  <div
+                    key={att.id}
+                    style={{
+                      border: "1px solid var(--border, #ccc)",
+                      borderRadius: "6px",
+                      padding: "6px",
+                      background: "var(--card-bg, #fff)",
+                    }}
+                  >
+                    {attachmentUrls[att.id] ? (
+                      <a
+                        href={attachmentUrls[att.id]}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <img
+                          src={attachmentUrls[att.id]}
+                          alt={att.filename}
+                          style={{
+                            width: "100px",
+                            height: "100px",
+                            objectFit: "cover",
+                            display: "block",
+                            borderRadius: "4px",
+                          }}
+                        />
+                      </a>
+                    ) : (
+                      <div
+                        style={{
+                          width: "100px",
+                          height: "100px",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                        className="muted"
+                      >
+                        Loading...
+                      </div>
+                    )}
+                    <span
+                      className="small muted"
+                      style={{
+                        display: "block",
+                        maxWidth: "100px",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                        marginTop: "4px",
+                      }}
+                    >
+                      {att.filename}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
 

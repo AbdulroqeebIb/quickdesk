@@ -71,13 +71,20 @@
     "noComments": "No comments yet.",
     "addComment": "Add a comment",
     "post": "Post comment",
-    "posting": "Posting..."
+    "posting": "Posting...",
+    "attachments": "Attachments"
   },
   "common": {
     "switchLang": "العربية",
     "dark": "Dark",
     "light": "Light",
     "toggleTheme": "Toggle theme",
-    "error": "Something went wrong. Please try again."
+    "error": "Something went wrong. Please try again.",
+    "aiButton": "✨ AI Suggest",
+    "aiLoading": "Analyzing...",
+    "aiNeedText": "Enter a title or description first.",
+    "aiFailed": "Couldn't get a suggestion. Please choose manually.",
+    "aiDone": "Suggested by AI. Please check before submitting.",
+    "aiLocal": "AI is busy, so a quick rule-based suggestion was used."
   }
 }

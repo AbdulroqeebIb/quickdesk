@@ -55,4 +55,9 @@ PATCH http://localhost:5000/api/tickets/1/status
 Content-Type: application/json
 Authorization: Bearer {{sara}}
 
-{ "status": "resolved" }
+### 11. Sara attaches a file to the ticket
+POST http://localhost:5000/api/tickets/1/attachments
+Content-Type: application/json
+Authorization: Bearer {{sara}}
+
+{ "file": "path/to/file.pdf" }
