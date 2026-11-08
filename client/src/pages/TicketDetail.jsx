@@ -44,7 +44,7 @@ export default function TicketDetail() {
           for (const att of data.attachments) {
             try {
               const res = await fetch(
-                `http://localhost:5000/api/tickets/${id}/attachments/${att.id}`,
+                `/api/tickets/${id}/attachments/${att.id}`,
                 {
                   headers: {
                     ...(token ? { Authorization: `Bearer ${token}` } : {}),
