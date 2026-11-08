@@ -175,16 +175,13 @@ export default function NewTicket() {
 
         const token =
           localStorage.getItem("token") || sessionStorage.getItem("token");
-        const uploadRes = await fetch(
-          `http://localhost:5000/api/tickets/${ticketId}/attachments`,
-          {
-            method: "POST",
-            headers: {
-              ...(token ? { Authorization: `Bearer ${token}` } : {}),
-            },
-            body: formData,
+        const uploadRes = await fetch(`/api/tickets/${ticketId}/attachments`, {
+          method: "POST",
+          headers: {
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
           },
-        );
+          body: formData,
+        });
 
         if (!uploadRes.ok) {
           const errData = await uploadRes.json().catch(() => ({}));
