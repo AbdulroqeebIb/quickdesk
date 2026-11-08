@@ -12,9 +12,9 @@ const {
 } = require("../utils/email");
 router.use(auth);
 
-// Multer setup with memory storage and 2MB file size limit
+// Multer setup with memory storage and 10MB file size limit
 const upload = multer({
-  limits: { fileSize: 2 * 1024 * 1024 },
+  limits: { fileSize: 10 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
     // Basic mimetype pre-check
     if (!["image/jpeg", "image/png", "image/webp"].includes(file.mimetype)) {
@@ -244,7 +244,9 @@ router.post("/:id/attachments", async (req, res) => {
     if (err) {
       if (err instanceof multer.MulterError) {
         if (err.code === "LIMIT_FILE_SIZE") {
-          return res.status(400).json({ error: "File size exceeds 2MB limit" });
+          return res
+            .status(400)
+            .json({ error: "File size exceeds 10MB limit" });
         }
         if (err.code === "LIMIT_FILE_COUNT") {
           return res
