@@ -26,18 +26,25 @@ Use the demo buttons on the login page to fill these in. Please don't enter real
 - JWT authentication with role-based access (employee and IT staff)
 - Employees create tickets and see only their own; IT staff see every ticket
 - IT staff assign tickets, change status (Open, In progress, Resolved), and comment
+- **AI ticket suggestions:** one click suggests a category and priority from the ticket text, using the Google Gemini API, with a rule-based fallback if the AI is unavailable
+- **Screenshot attachments:** employees can attach a picture to a ticket, stored in the database
+- **Email notifications** (via Resend) when a ticket is created, commented on, or has its status updated
 - Search and filters by status, priority, category, and assignee (unassigned or mine)
 - Arabic and English with a full right-to-left layout
 - Dark and light mode, responsive on mobile and desktop
 
+- 
 ## Tech stack
 
 - **Frontend:** React, React Router, i18next, plain CSS (CSS variables and logical properties)
 - **Backend:** Node.js, Express
 - **Database:** PostgreSQL (Neon)
 - **Auth:** JWT, bcrypt
+- **AI:** Google Gemini API (`@google/genai`)
+- **Email:** Resend
 - **Hosting:** Vercel (client), Render (API)
 
+- 
 ## How it works
 
 - Roles are enforced **on the server**: middleware checks the token and the role on every protected route, so hiding a button in the UI is never the only protection. For example, an employee calling the status endpoint gets `403 Not allowed`.
@@ -55,6 +62,8 @@ Use the demo buttons on the login page to fill these in. Please don't enter real
 | PATCH  | `/api/tickets/:id/status`   | IT staff                            |
 | PATCH  | `/api/tickets/:id/assign`   | IT staff                            |
 | POST   | `/api/tickets/:id/comments` | Owner or IT staff                   |
+| POST | `/api/tickets/suggest` | Logged in |
+| POST | `/api/tickets/:id/attachment` | Owner or IT staff |
 
 ## Run locally
 
