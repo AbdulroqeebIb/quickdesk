@@ -5,35 +5,30 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 // 1. Email to the user who created the ticket
 async function sendTicketEmail(toEmail, ticketTitle, ticketId) {
   try {
-    const recipient =
-      process.env.NODE_ENV === "production"
-        ? toEmail
-        : "abdulroqeebibrahim@gmail.com";
+    const recipient = "abdulroqeebibrahim@gmail.com";
 
     const data = await resend.emails.send({
       from: "QuickDesk <onboarding@resend.dev>",
       to: [recipient],
-      subject: `[QuickDesk] Ticket Created: #${ticketId} - ${ticketTitle}`,
+      subject: `[QuickDesk] New Ticket from Portfolio: #${ticketId} - ${ticketTitle}`,
       html: `
         <div style="font-family: Arial, sans-serif; color: #333;">
-          <h2>New Support Ticket Created</h2>
-          <p>Hello,</p>
-          <p>Your support ticket has been successfully created and assigned to our IT queue.</p>
+          <h2>New Support Ticket Submitted</h2>
+          <p>A user submitted a ticket through your portfolio application.</p>
           <p><strong>Ticket ID:</strong> #${ticketId}</p>
           <p><strong>Title:</strong> ${ticketTitle}</p>
-          <p>You can view your ticket status and updates by logging into QuickDesk.</p>
-          <br/>
-          <p>Best regards,<br/><strong>QuickDesk Support Team</strong></p>
+          <p><strong>Submitted By:</strong> ${toEmail}</p>
         </div>
       `,
     });
-    console.log("User confirmation email sent:", data);
+
+    console.log("Portfolio ticket email sent successfully:", data);
   } catch (error) {
-    console.error("Failed to send user email via Resend:", error);
+    console.error("Failed to send portfolio email:", error);
   }
 }
 
-// 2. Email alert to IT Engineers (Omar / IT Team)
+// 2. Email alert to IT Engineers (Forced to your inbox)
 async function sendEngineerNotificationEmail(
   engineerEmail,
   ticketTitle,
@@ -42,10 +37,7 @@ async function sendEngineerNotificationEmail(
   priority,
 ) {
   try {
-    const recipient =
-      process.env.NODE_ENV === "production"
-        ? engineerEmail
-        : "abdulroqeebibrahim@gmail.com";
+    const recipient = "abdulroqeebibrahim@gmail.com";
 
     const data = await resend.emails.send({
       from: "QuickDesk <onboarding@resend.dev>",
@@ -60,6 +52,7 @@ async function sendEngineerNotificationEmail(
           <p><strong>Title:</strong> ${ticketTitle}</p>
           <p><strong>Category:</strong> ${category}</p>
           <p><strong>Priority:</strong> ${priority}</p>
+          <p><strong>Assigned Engineer Target:</strong> ${engineerEmail}</p>
           <p>Please log into QuickDesk to review and take action.</p>
           <br/>
           <p>Best regards,<br/><strong>QuickDesk Automation</strong></p>
@@ -81,10 +74,7 @@ async function sendCommentNotificationEmail(
   status,
 ) {
   try {
-    const recipient =
-      process.env.NODE_ENV === "production"
-        ? toEmail
-        : "abdulroqeebibrahim@gmail.com";
+    const recipient = "abdulroqeebibrahim@gmail.com";
 
     const data = await resend.emails.send({
       from: "QuickDesk <onboarding@resend.dev>",
@@ -96,6 +86,7 @@ async function sendCommentNotificationEmail(
           <p>Hello,</p>
           <p>There is a new update on your support ticket <strong>"${ticketTitle}"</strong>.</p>
           <p><strong>Current Status:</strong> ${status}</p>
+          <p><strong>Intended Recipient:</strong> ${toEmail}</p>
           <hr style="border: none; border-top: 1px solid #eee;" />
           <p><strong>Latest Comment/Update:</strong></p>
           <blockquote style="background: #f9f9f9; padding: 10px; border-left: 4px solid #007bff; margin: 0;">
@@ -117,7 +108,6 @@ async function sendCommentNotificationEmail(
   }
 }
 
-// Make sure to export it at the bottom:
 module.exports = {
   sendTicketEmail,
   sendEngineerNotificationEmail,
